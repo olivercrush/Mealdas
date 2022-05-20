@@ -1,0 +1,9 @@
+{
+    "ingredients": [
+        { "name": "garlic" },
+        { "name": "parsley" },
+        { "name": "steak" },
+        { "name": "chicken" },
+        { "name": "bacon" }
+    ]
+}
