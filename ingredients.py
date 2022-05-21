@@ -23,8 +23,9 @@ class Ingredients:
             json.dump(json_dictionnary, f)
 
     def add_ingredient(self, ingredient):
-        self.list["ingredients"].append(ingredient)
-        self.update_list_file(self.list)
+        if self.list["ingredients"].count(ingredient) == 0:
+            self.list["ingredients"].append(ingredient)
+            self.update_list_file(self.list)
 
     def get_ingredient_list(self):
         return self.list
