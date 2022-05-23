@@ -1,11 +1,12 @@
 class Ingredient:
-    def __init__(self):
-        pass
+    def __init__(self, ingredient_json={}):
+        self.from_json_object(ingredient_json)
 
-    @classmethod
     def from_json_object(self, ingredient_json):
-        self.add_name(ingredient_json["name"])
-        self.add_unit(ingredient_json["unit"])
+        if "name" in ingredient_json:
+            self.name = ingredient_json["name"]
+        if "unit" in ingredient_json:
+            self.unit = ingredient_json["unit"]
 
     def add_name(self, name):
         self.name = name
@@ -17,4 +18,7 @@ class Ingredient:
         return hasattr(self, "name") and hasattr(self, "unit")
 
     def get_json_object(self):
-        return self.ingredient
+        return {
+            "name": self.name,
+            "unit": self.unit
+        }
