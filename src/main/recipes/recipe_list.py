@@ -1,31 +1,31 @@
 from os.path import exists
 import json
 
-INGREDIENTS_PATH = "res/ingredients.json"
+RECIPES_PATH = "res/recipes.json"
 
-class Ingredients:
+class RecipeList:
     def __init__(self):
         self.list = self.load_list_file()
         pass
 
     def load_list_file(self):
-        if not exists(INGREDIENTS_PATH):
+        if not exists(RECIPES_PATH):
             empty_list = {
-                "ingredients": []
+                "recipes": []
             }
             self.update_list_file(empty_list)
 
-        with open(INGREDIENTS_PATH, 'r') as f:
+        with open(RECIPES_PATH, 'r') as f:
             return json.load(f)
             
     def update_list_file(self, json_dictionnary):
-        with open(INGREDIENTS_PATH, "w") as f:
+        with open(RECIPES_PATH, "w") as f:
             json.dump(json_dictionnary, f)
 
-    def add_ingredient(self, ingredient):
-        if self.list["ingredients"].count(ingredient) == 0:
-            self.list["ingredients"].append(ingredient)
+    def add_recipe(self, recipe):
+        if self.list["recipes"].count(recipe) == 0:
+            self.list["recipes"].append(recipe)
             self.update_list_file(self.list)
 
-    def get_ingredient_list(self):
+    def get_recipe_list(self):
         return self.list
