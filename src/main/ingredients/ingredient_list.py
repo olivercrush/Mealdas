@@ -1,25 +1,28 @@
 from os.path import exists
 import json
 
-INGREDIENTS_PATH = "res/ingredients.json"
+from main.ingredients.ingredient import Ingredient
 
 class IngredientList:
-    def __init__(self):
-        self.list = self.load_list_file()
+    def __init__(self, filepath):
+        self.filepath = filepath
+        self.ingredients = []
+        self.load_list_file()
         pass
 
     def load_list_file(self):
-        if not exists(INGREDIENTS_PATH):
+        if not exists(self.filepath):
             empty_list = {
                 "ingredients": []
             }
             self.update_list_file(empty_list)
 
-        with open(INGREDIENTS_PATH, 'r') as f:
-            return json.load(f)
+        with open(self.filepath, 'r') as f:
+            for ingredient in json.load(f)["ingredients"]:
+                self.ingredients.append(Ingredient(ingredient))
             
     def update_list_file(self, json_dictionnary):
-        with open(INGREDIENTS_PATH, "w") as f:
+        with open(self.filepath, "w") as f:
             json.dump(json_dictionnary, f)
 
     def add_ingredient(self, ingredient):
