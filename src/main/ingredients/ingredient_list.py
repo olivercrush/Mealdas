@@ -33,6 +33,12 @@ class IngredientList:
             self.ingredients.append(new_ingredient)
             self.update_list_file(self.get_json_object())
 
+    def get_ingredient(self, ingredient_name):
+        for ingredient in self.ingredients:
+            if ingredient.name == ingredient_name:
+                return ingredient
+        return None
+
     def get_json_object(self):
         json_object = {
             "ingredients": []

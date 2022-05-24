@@ -83,6 +83,14 @@ class TestIngredientListMethods(unittest.TestCase):
         list = IngredientList(TEST_LIST_FILEPATH)
         self.assertFalse(list.ingredient_already_exists(Ingredient(INGREDIENT_11)))
 
+    def test_get_ingredient_exists(self):
+        list = IngredientList(TEST_LIST_UPDATE_FILEPATH)
+        self.assertEqual(INGREDIENT_1, list.get_ingredient("garlic").get_json_object())
+
+    def test_get_ingredient_doesnt_exists(self):
+        list = IngredientList(TEST_LIST_UPDATE_FILEPATH)
+        self.assertIsNone(list.get_ingredient(Ingredient(INGREDIENT_11)))
+
     def test_add_ingredient(self):
         list = IngredientList(EMPTY_TEST_LIST_FILEPATH)
         list.add_ingredient(Ingredient(INGREDIENT_1))
