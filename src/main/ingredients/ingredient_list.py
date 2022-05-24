@@ -21,19 +21,28 @@ class IngredientList:
             for ingredient in json.load(f)["ingredients"]:
                 self.ingredients.append(Ingredient(ingredient))
             
-    def update_list_file(self, json_dictionnary):
+    def ingredient_already_exists(self, ingredient_to_check):
+        ingredient_exists = False
+        for ingredient in self.ingredients:
+            if ingredient.name == ingredient_to_check.name:
+                ingredient_exists = True
+        return ingredient_exists
+
+    def add_ingredient(self, new_ingredient):
+        if not self.ingredient_already_exists(new_ingredient):
+            self.ingredients.append(new_ingredient)
+            self.update_list_file(self.get_json_object())
+
+    def update_list_file(self, ingredients_json):
         with open(self.filepath, "w") as f:
-            json.dump(json_dictionnary, f)
+            json.dump(ingredients_json, f)
 
-    def add_ingredient(self, ingredient):
-        if self.list["ingredients"].count(ingredient.get()) == 0:
-            self.list["ingredients"].append(ingredient.get())
-            self.update_list_file(self.list)
+    def get_json_object(self):
+        json_object = {
+            "ingredients": []
+        }
 
-    def get_ingredient_list(self):
-        return self.list
+        for ingredient in self.ingredients:
+            json_object["ingredients"].append(ingredient.get_json_object())
 
-    def get_ingredient(self, ingredient_name):
-        for ingredient in self.list:
-            if ingredient["name"] == ingredient_name:
-                return ingredient
+        return json_object
