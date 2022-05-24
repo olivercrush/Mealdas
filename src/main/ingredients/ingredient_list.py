@@ -33,10 +33,6 @@ class IngredientList:
             self.ingredients.append(new_ingredient)
             self.update_list_file(self.get_json_object())
 
-    def update_list_file(self, ingredients_json):
-        with open(self.filepath, "w") as f:
-            json.dump(ingredients_json, f)
-
     def get_json_object(self):
         json_object = {
             "ingredients": []
@@ -46,3 +42,7 @@ class IngredientList:
             json_object["ingredients"].append(ingredient.get_json_object())
 
         return json_object
+
+    def update_list_file(self, ingredients_json):
+        with open(self.filepath, "w") as f:
+            json.dump(ingredients_json, f)

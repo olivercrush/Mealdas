@@ -1,11 +1,13 @@
 import unittest
 from os.path import exists
 from os import remove
+import json
 from main.ingredients.ingredient import Ingredient
 from main.ingredients.ingredient_list import IngredientList
 
 EMPTY_TEST_LIST_FILEPATH = "test/res/test.json"
 TEST_LIST_FILEPATH = "test/res/ingredients.json"
+TEST_LIST_UPDATE_FILEPATH = "test/res/ingredients_update.json"
 
 INGREDIENT_1 = {"name": "garlic", "unit": "clove"}
 INGREDIENT_2 = {"name": "steak", "unit": "g"}
@@ -52,6 +54,22 @@ class TestIngredientListMethods(unittest.TestCase):
         self.assertEqual(INGREDIENT_8, list.ingredients[7].get_json_object())
         self.assertEqual(INGREDIENT_9, list.ingredients[8].get_json_object())
         self.assertEqual(INGREDIENT_10, list.ingredients[9].get_json_object())
+
+    def test_update_list_file(self):
+        list = IngredientList(TEST_LIST_UPDATE_FILEPATH)
+        list.add_ingredient(Ingredient(INGREDIENT_1))
+        list.add_ingredient(Ingredient(INGREDIENT_2))
+        list.add_ingredient(Ingredient(INGREDIENT_3))
+        list.add_ingredient(Ingredient(INGREDIENT_4))
+        list.add_ingredient(Ingredient(INGREDIENT_5))
+        list.add_ingredient(Ingredient(INGREDIENT_6))
+        list.add_ingredient(Ingredient(INGREDIENT_7))
+        list.add_ingredient(Ingredient(INGREDIENT_8))
+        list.add_ingredient(Ingredient(INGREDIENT_9))
+        list.add_ingredient(Ingredient(INGREDIENT_10))
+        
+        with open(TEST_LIST_UPDATE_FILEPATH, 'r') as f:
+            self.assertEqual(JSON_TEST_LIST, json.load(f))
 
     def test_get_json_object(self):
         list = IngredientList(TEST_LIST_FILEPATH)
