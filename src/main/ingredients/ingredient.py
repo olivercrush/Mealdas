@@ -8,6 +8,12 @@ class Ingredient:
         if "unit" in ingredient_json:
             self.unit = ingredient_json["unit"]
 
+    def get_json_object(self):
+        return {
+            "name": self.name,
+            "unit": self.unit
+        }
+
     def add_name(self, name):
         self.name = name
 
@@ -17,8 +23,4 @@ class Ingredient:
     def is_valid(self):
         return hasattr(self, "name") and hasattr(self, "unit")
 
-    def get_json_object(self):
-        return {
-            "name": self.name,
-            "unit": self.unit
-        }
+    
