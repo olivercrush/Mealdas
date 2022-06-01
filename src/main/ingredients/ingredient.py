@@ -1,5 +1,5 @@
 class Ingredient:
-    def __init__(self, ingredient_json={}):
+    def __init__(self, ingredient_json: dict[str, str] = {}):
         self.from_json_object(ingredient_json)
 
     def from_json_object(self, ingredient_json: dict[str, str]):

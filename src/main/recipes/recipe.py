@@ -2,10 +2,10 @@ from main.ingredients.ingredient import Ingredient
 
 
 class Recipe:
-    def __init__(self, recipe_json={}):
+    def __init__(self, recipe_json : dict[str, str, list[dict[dict[str, str], float]], list[str]] = {}):
         self.from_json_object(recipe_json)
 
-    def from_json_object(self, recipe_json: dict[str, str, list[dict[str, str]], list[str]]):
+    def from_json_object(self, recipe_json: dict[str, str, list[dict[dict[str, str], float]], list[str]]):
         if "name" in recipe_json:
             self.name = recipe_json["name"]
         if "steps" in recipe_json:
@@ -16,7 +16,7 @@ class Recipe:
         if "duration_in_min" in recipe_json:
             self.duration_in_min = recipe_json["duration_in_min"]
 
-    def get_json_object(self) -> dict[str, str, list[dict[str, str]], list[str]]:
+    def get_json_object(self) -> dict[str, str, list[dict[dict[str, str], float]], list[str]]:
         json_ingredients = []
         for entry in self.ingredients:
             json_ingredients.append({

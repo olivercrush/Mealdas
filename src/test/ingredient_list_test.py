@@ -34,27 +34,43 @@ JSON_TEST_LIST = [
     INGREDIENT_10
 ]
 
+OBJECT_TEST_LIST = [
+    Ingredient(INGREDIENT_1),
+    Ingredient(INGREDIENT_2),
+    Ingredient(INGREDIENT_3),
+    Ingredient(INGREDIENT_4),
+    Ingredient(INGREDIENT_5),
+    Ingredient(INGREDIENT_6),
+    Ingredient(INGREDIENT_7),
+    Ingredient(INGREDIENT_8),
+    Ingredient(INGREDIENT_9),
+    Ingredient(INGREDIENT_10)
+]
+
+def ingredient_compare(ingredient1, ingredient2, msg):
+    return ingredient1.name == ingredient2.name and ingredient1.unit == ingredient2.unit
+
 class TestIngredientListMethods(unittest.TestCase):
 
-    def test_initialization(self):
-        list = IngredientList(EMPTY_TEST_LIST_FILEPATH)
-        self.assertTrue(exists(EMPTY_TEST_LIST_FILEPATH))
+    def setUp(self):
+        self.addTypeEqualityFunc(Ingredient, ingredient_compare)
 
     def test_load_list_file(self):
-        list = IngredientList(TEST_LIST_FILEPATH)
-        self.assertEqual(INGREDIENT_1, list.ingredients[0].get_json_object())
-        self.assertEqual(INGREDIENT_2, list.ingredients[1].get_json_object())
-        self.assertEqual(INGREDIENT_3, list.ingredients[2].get_json_object())
-        self.assertEqual(INGREDIENT_4, list.ingredients[3].get_json_object())
-        self.assertEqual(INGREDIENT_5, list.ingredients[4].get_json_object())
-        self.assertEqual(INGREDIENT_6, list.ingredients[5].get_json_object())
-        self.assertEqual(INGREDIENT_7, list.ingredients[6].get_json_object())
-        self.assertEqual(INGREDIENT_8, list.ingredients[7].get_json_object())
-        self.assertEqual(INGREDIENT_9, list.ingredients[8].get_json_object())
-        self.assertEqual(INGREDIENT_10, list.ingredients[9].get_json_object())
+        list = IngredientList()
+        list.load_list_file(TEST_LIST_FILEPATH)
+        self.assertEqual(Ingredient(INGREDIENT_1), list.ingredients[0])
+        self.assertEqual(Ingredient(INGREDIENT_2), list.ingredients[1])
+        self.assertEqual(Ingredient(INGREDIENT_3), list.ingredients[2])
+        self.assertEqual(Ingredient(INGREDIENT_4), list.ingredients[3])
+        self.assertEqual(Ingredient(INGREDIENT_5), list.ingredients[4])
+        self.assertEqual(Ingredient(INGREDIENT_6), list.ingredients[5])
+        self.assertEqual(Ingredient(INGREDIENT_7), list.ingredients[6])
+        self.assertEqual(Ingredient(INGREDIENT_8), list.ingredients[7])
+        self.assertEqual(Ingredient(INGREDIENT_9), list.ingredients[8])
+        self.assertEqual(Ingredient(INGREDIENT_10), list.ingredients[9])
 
     def test_update_list_file(self):
-        list = IngredientList(TEST_LIST_UPDATE_FILEPATH)
+        list = IngredientList(filepath=TEST_LIST_UPDATE_FILEPATH)
         list.add_ingredient(Ingredient(INGREDIENT_1))
         list.add_ingredient(Ingredient(INGREDIENT_2))
         list.add_ingredient(Ingredient(INGREDIENT_3))
@@ -70,29 +86,29 @@ class TestIngredientListMethods(unittest.TestCase):
             self.assertEqual(JSON_TEST_LIST, json.load(f))
 
     def test_get_json_object(self):
-        list = IngredientList(TEST_LIST_FILEPATH)
+        list = IngredientList(filepath=TEST_LIST_FILEPATH)
         self.assertEqual(JSON_TEST_LIST, list.get_json_object())
 
     def test_ingredient_already_exists(self):
-        list = IngredientList(TEST_LIST_FILEPATH)
+        list = IngredientList()
         self.assertTrue(list.ingredient_already_exists(Ingredient(INGREDIENT_1)))
 
     def test_ingredient_doesnt_exists(self):
-        list = IngredientList(TEST_LIST_FILEPATH)
+        list = IngredientList()
         self.assertFalse(list.ingredient_already_exists(Ingredient(INGREDIENT_11)))
 
     def test_get_ingredient_exists(self):
-        list = IngredientList(TEST_LIST_FILEPATH)
+        list = IngredientList()
         self.assertEqual(INGREDIENT_1, list.get_ingredient("garlic").get_json_object())
 
     def test_get_ingredient_doesnt_exists(self):
-        list = IngredientList(TEST_LIST_FILEPATH)
+        list = IngredientList()
         self.assertIsNone(list.get_ingredient(Ingredient(INGREDIENT_11)))
 
     def test_add_ingredient(self):
-        list = IngredientList(EMPTY_TEST_LIST_FILEPATH)
+        list = IngredientList()
         list.add_ingredient(Ingredient(INGREDIENT_1))
-        self.assertEqual(INGREDIENT_1, list.ingredients[0].get_json_object())
+        self.assertEqual(Ingredient(INGREDIENT_1), list.ingredients[0])
 
     def tearDown(self):
         if exists(EMPTY_TEST_LIST_FILEPATH):
