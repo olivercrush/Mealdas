@@ -4,11 +4,10 @@ import json
 from main.ingredients.ingredient import Ingredient
 
 class IngredientList:
-    def __init__(self, filepath):
+    def __init__(self, filepath: str):
         self.filepath = filepath
         self.ingredients = []
         self.load_list_file()
-        pass
 
     def load_list_file(self):
         if not exists(self.filepath):
@@ -21,34 +20,31 @@ class IngredientList:
             for ingredient in json.load(f)["ingredients"]:
                 self.ingredients.append(Ingredient(ingredient))
             
-    def ingredient_already_exists(self, ingredient_to_check):
+    def ingredient_already_exists(self, ingredient_to_check: Ingredient) -> bool:
         ingredient_exists = False
         for ingredient in self.ingredients:
             if ingredient.name == ingredient_to_check.name:
                 ingredient_exists = True
         return ingredient_exists
 
-    def add_ingredient(self, new_ingredient):
+    def add_ingredient(self, new_ingredient: Ingredient):
         if not self.ingredient_already_exists(new_ingredient):
             self.ingredients.append(new_ingredient)
             self.update_list_file(self.get_json_object())
 
-    def get_ingredient(self, ingredient_name):
+    def get_ingredient(self, ingredient_name: str) -> Ingredient:
         for ingredient in self.ingredients:
             if ingredient.name == ingredient_name:
                 return ingredient
         return None
 
-    def get_json_object(self):
-        json_object = {
-            "ingredients": []
-        }
-
+    def get_json_object(self) -> list[dict[str, str]]:
+        ingredient_list = []
         for ingredient in self.ingredients:
-            json_object["ingredients"].append(ingredient.get_json_object())
+            ingredient_list.append(ingredient.get_json_object())
 
-        return json_object
+        return ingredient_list
 
-    def update_list_file(self, ingredients_json):
+    def update_list_file(self, ingredients_json: list[dict[str, str]]):
         with open(self.filepath, "w") as f:
             json.dump(ingredients_json, f)

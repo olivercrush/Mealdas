@@ -21,20 +21,18 @@ INGREDIENT_9 = {"name": "lentils", "unit": "g"}
 INGREDIENT_10 = {"name": "potato", "unit": "mcx"}
 INGREDIENT_11 = {"name": "onion", "unit": "mcx"}
 
-JSON_TEST_LIST = {
-    "ingredients": [
-        INGREDIENT_1,
-        INGREDIENT_2,
-        INGREDIENT_3,
-        INGREDIENT_4,
-        INGREDIENT_5,
-        INGREDIENT_6,
-        INGREDIENT_7,
-        INGREDIENT_8,
-        INGREDIENT_9,
-        INGREDIENT_10
-    ]
-}
+JSON_TEST_LIST = [
+    INGREDIENT_1,
+    INGREDIENT_2,
+    INGREDIENT_3,
+    INGREDIENT_4,
+    INGREDIENT_5,
+    INGREDIENT_6,
+    INGREDIENT_7,
+    INGREDIENT_8,
+    INGREDIENT_9,
+    INGREDIENT_10
+]
 
 class TestIngredientListMethods(unittest.TestCase):
 

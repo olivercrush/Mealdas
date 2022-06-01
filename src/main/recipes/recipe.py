@@ -5,7 +5,7 @@ class Recipe:
     def __init__(self, recipe_json={}):
         self.from_json_object(recipe_json)
 
-    def from_json_object(self, recipe_json):
+    def from_json_object(self, recipe_json: dict[str, str, list[dict[str, str]], list[str]]):
         if "name" in recipe_json:
             self.name = recipe_json["name"]
         if "steps" in recipe_json:
@@ -13,10 +13,10 @@ class Recipe:
         if "ingredients" in recipe_json:
             for entry in recipe_json["ingredients"]:
                 self.add_ingredient(Ingredient(entry["ingredient"]), entry["amount"])
-        if "duration" in recipe_json:
-            self.duration = recipe_json["duration"]
+        if "duration_in_min" in recipe_json:
+            self.duration_in_min = recipe_json["duration_in_min"]
 
-    def get_json_object(self):
+    def get_json_object(self) -> dict[str, str, list[dict[str, str]], list[str]]:
         json_ingredients = []
         for entry in self.ingredients:
             json_ingredients.append({
@@ -28,19 +28,19 @@ class Recipe:
             "name": self.name,
             "steps": self.steps,
             "ingredients": json_ingredients,
-            "duration": self.duration
+            "duration_in_min": self.duration_in_min
         }
 
-    def add_name(self, name):
+    def add_name(self, name: str):
         self.name = name
 
-    def add_step(self, step):
+    def add_step(self, step: str):
         if not hasattr(self, "steps"):
             self.steps = []
 
         self.steps.append(step)
 
-    def add_ingredient(self, ingredient, amount):
+    def add_ingredient(self, ingredient: Ingredient, amount: float):
         if not hasattr(self, "ingredients"):
             self.ingredients = []
 
@@ -49,5 +49,5 @@ class Recipe:
             "amount": amount
         })
 
-    def add_duration(self, duration):
-        self.duration = duration
+    def add_duration_in_min(self, duration_in_min: int):
+        self.duration_in_min = duration_in_min
