@@ -108,7 +108,15 @@ class TestIngredientListMethods(unittest.TestCase):
     def test_add_ingredient(self):
         list = IngredientList()
         list.add_ingredient(Ingredient(INGREDIENT_1))
+        list.add_ingredient(Ingredient(INGREDIENT_2))
+        list.add_ingredient(Ingredient(INGREDIENT_3))
+        list.add_ingredient(Ingredient(INGREDIENT_4))
+        list.add_ingredient(Ingredient(INGREDIENT_5))
         self.assertEqual(Ingredient(INGREDIENT_1), list.ingredients[0])
+        self.assertEqual(Ingredient(INGREDIENT_2), list.ingredients[1])
+        self.assertEqual(Ingredient(INGREDIENT_3), list.ingredients[2])
+        self.assertEqual(Ingredient(INGREDIENT_4), list.ingredients[3])
+        self.assertEqual(Ingredient(INGREDIENT_5), list.ingredients[4])
 
     def tearDown(self):
         if exists(EMPTY_TEST_LIST_FILEPATH):

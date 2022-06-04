@@ -10,16 +10,6 @@ class IngredientList:
 
         if filepath is not None:
             self.load_list_file(filepath)
-
-    def load_list_file(self, filepath: str):
-        self.filepath = filepath
-        if not exists(filepath):
-            self.update_list_file([])
-
-        self.ingredients = []
-        with open(filepath, 'r') as f:
-            for ingredient in json.load(f):
-                self.ingredients.append(Ingredient(ingredient))
             
     def ingredient_already_exists(self, ingredient_to_check: Ingredient) -> bool:
         ingredient_exists = False
@@ -56,3 +46,13 @@ class IngredientList:
         if hasattr(self, "filepath") and self.filepath is not None:
             with open(self.filepath, "w") as f:
                 json.dump(ingredients_json, f)
+
+    def load_list_file(self, filepath: str):
+        self.filepath = filepath
+        if not exists(filepath):
+            self.update_list_file([])
+
+        self.ingredients = []
+        with open(filepath, 'r') as f:
+            for ingredient in json.load(f):
+                self.ingredients.append(Ingredient(ingredient))

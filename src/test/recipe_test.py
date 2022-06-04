@@ -38,8 +38,6 @@ JSON_OBJECT = {
     "ingredients": TEST_INGREDIENTS_AS_JSON_DICTS
 }
 
-# TODO : find a way to put the amounts in the ingredient list object
-
 def ingredient_compare(ingredient1, ingredient2, msg):
     return ingredient1.name == ingredient2.name and ingredient1.unit == ingredient2.unit
 
