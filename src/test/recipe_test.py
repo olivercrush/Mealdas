@@ -33,12 +33,12 @@ TEST_INGREDIENTS_AS_JSON_DICTS = [
 
 JSON_OBJECT = {
     "name": TEST_NAME,
-    "duration": TEST_DURATION,
+    "duration_in_min": TEST_DURATION,
     "steps": TEST_STEPS,
     "ingredients": TEST_INGREDIENTS_AS_JSON_DICTS
 }
 
-# TODO : fix the tests and find a way to put the amounts in the ingredient list object
+# TODO : find a way to put the amounts in the ingredient list object
 
 def ingredient_compare(ingredient1, ingredient2, msg):
     return ingredient1.name == ingredient2.name and ingredient1.unit == ingredient2.unit
@@ -84,7 +84,7 @@ class TestIngredientMethods(unittest.TestCase):
     def test_add_duration(self):
         recipe = Recipe()
         recipe.add_duration_in_min(TEST_DURATION)
-        self.assertEqual(TEST_DURATION, recipe.duration)
+        self.assertEqual(TEST_DURATION, recipe.duration_in_min)
 
     def test_add_step(self):
         recipe = Recipe()
