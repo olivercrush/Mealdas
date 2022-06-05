@@ -23,4 +23,7 @@ class Ingredient:
     def is_valid(self) -> bool:
         return hasattr(self, "name") and hasattr(self, "unit")
 
+def ingredient_compare(ingredient1: Ingredient, ingredient2: Ingredient, msg: str = ""):
+    return ingredient1.name == ingredient2.name and ingredient1.unit == ingredient2.unit
+
     

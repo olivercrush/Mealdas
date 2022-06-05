@@ -6,10 +6,8 @@ from os import remove
 import json
 
 from main.ingredients.ingredient import Ingredient
+from main.ingredients.ingredient import ingredient_compare
 from main.ingredients.ingredient_list import IngredientList
-
-def ingredient_compare(ingredient1, ingredient2, msg):
-    return ingredient1.name == ingredient2.name and ingredient1.unit == ingredient2.unit
 
 class TestIngredientListMethods(unittest.TestCase):
 

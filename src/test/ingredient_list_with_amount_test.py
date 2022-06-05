@@ -2,7 +2,7 @@ import unittest
 import test_scenarios
 
 from main.ingredients.ingredient import Ingredient
-from main.ingredients.ingredient_list import IngredientList
+from main.ingredients.ingredient import ingredient_compare
 from main.ingredients.ingredient_list_with_amount import IngredientListWithAmount
 
 def ingredient_compare(ingredient1, ingredient2, msg):
